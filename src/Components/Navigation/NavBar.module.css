@@ -1,0 +1,10 @@
+
+.nav{
+    grid-area: n;
+    background-color: rgba(0, 0, 0, 0.73);
+}
+.item {
+    text-decoration: none;
+    color: #ffff;
+}
+
