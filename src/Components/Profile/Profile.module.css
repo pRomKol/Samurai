@@ -1,13 +1,6 @@
 .main__contentImage {
     height: 300px;
+    width: 100%;
+    object-fit: cover;
 }
 
-.avatar__image {
-    width: 100px;
-    height: 100px;
-}
-
-.content {
-    grid-area: content;
-    background-color: rgba(105, 104, 104, 0.34);
-}

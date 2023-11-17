@@ -1,7 +1,7 @@
-import profile from './Posts.module.css'
+import s from './Posts.module.css'
 import {Post} from "./Post";
 
-export function MyPosts(props:any) {
+export function  MyPosts(props:any) {
     return (
         <div>
             My Posts
@@ -12,7 +12,7 @@ export function MyPosts(props:any) {
             <div>
                 Nwe Posts
             </div>
-            <div className={profile.posts}>
+            <div className={s.posts}>
                 <Post likeCount='5' message='Hi, how are you?'/>
                 <Post message="It's my first post!"/>
                 <Post likeCount='10' message={props.hey}/>

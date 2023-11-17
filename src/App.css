@@ -1,11 +1,15 @@
-.wrapper {
+.app_wrapper {
     display: grid;
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 60px 1fr;
     grid-template-areas: 'header header' 'n content';
     width: 1278px;
     margin: 0 auto;
-    gap: 15px;
+    gap: 5px;
 }
 
+.app_wrapper__content {
+    grid-area: content;
+    background-color: rgba(105, 104, 104, 0.34);
+}
 

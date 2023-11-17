@@ -7,4 +7,6 @@
     text-decoration: none;
     color: #ffff;
 }
-
+.active{
+    color: darkorchid;
+}
