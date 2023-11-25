@@ -1,7 +1,13 @@
 import s from './Posts.module.css'
 import {Post} from "./Post";
+import {PostType} from "../../../index";
 
-export function  MyPosts(props:any) {
+type PropsType = {
+    postsData: Array<PostType>
+}
+
+export function MyPosts(props: PropsType) {
+
     return (
         <div>
             My Posts
@@ -13,9 +19,8 @@ export function  MyPosts(props:any) {
                 Nwe Posts
             </div>
             <div className={s.posts}>
-                <Post likeCount='5' message='Hi, how are you?'/>
-                <Post message="It's my first post!"/>
-                <Post likeCount='10' message={props.hey}/>
+                {props.postsData.map(({id, message, likeCount}) => (
+                    <Post key={id} likeCount={likeCount} message={message}/>))}
             </div>
         </div>
 

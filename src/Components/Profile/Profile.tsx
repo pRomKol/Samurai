@@ -1,6 +1,8 @@
 import profile from './Profile.module.css'
 import {MyPosts} from "./MyPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {PostType} from "../../index";
+
 const ProfileImg = () => {
     return(
         <div>
@@ -10,12 +12,16 @@ const ProfileImg = () => {
     )
 }
 
-export const Profile = () => {
+type PropsType = {
+    postsData: Array<PostType>
+
+}
+export const Profile = (props: any) => {
     return (
         <div>
             <ProfileImg/>
             <ProfileInfo/>
-            <MyPosts hey='Yo!'/>
+            <MyPosts postsData={props.postsData} />
         </div>
 
     )
