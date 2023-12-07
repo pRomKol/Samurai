@@ -1,7 +1,7 @@
 import profile from './Profile.module.css'
 import {MyPosts} from "./MyPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostType} from "../../index";
+import {PostType} from "../../redux/state";
 
 const ProfileImg = () => {
     return(
@@ -16,7 +16,7 @@ type PropsType = {
     postsData: Array<PostType>
 
 }
-export const Profile = (props: any) => {
+export const Profile = (props: PropsType) => {
     return (
         <div>
             <ProfileImg/>

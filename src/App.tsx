@@ -8,22 +8,29 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Music} from "./Components/Music/Music";
 import {Video} from "./Components/Video/Video";
 import {Friends} from "./Components/Friends";
-import {LinkType, PostType} from "./index";
+import {DialogsType, LinkType, MessageType, PostType} from "./redux/state";
 
-export type PropsType = {
-    postsData?: Array<PostType>
-    navLink?: Array<LinkType>
+type StateType = {
+    state: PropsType
 }
-function App(props: PropsType) {
+export type PropsType = {
+    postsData: Array<PostType>
+    navLink: Array<LinkType>
+    messageData: Array<MessageType>
+    dialogsData: Array<DialogsType>
+}
+
+function App(props: StateType) {
 
     return (
         <BrowserRouter>
             <div className='app_wrapper'>
                 <Header/>
-                <NavBar navLink={props.navLink}/>
+                <NavBar navLink={props.state.navLink}/>
                 <div className='app_wrapper__content'>
-                    <Route path='/profile' render={ () => <Profile postsData={props.postsData}  /> } />
-                    <Route path='/dialogs' render={ () => <Dialogs  /> } />
+                    <Route path='/profile' render={() => <Profile postsData={props.state.postsData}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs messageData={props.state.messageData}
+                                                                  dialogsData={props.state.dialogsData}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/video' component={Video}/>
                     <Route path='/friends' component={Friends}/>

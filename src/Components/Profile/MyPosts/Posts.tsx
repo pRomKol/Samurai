@@ -1,6 +1,6 @@
 import s from './Posts.module.css'
 import {Post} from "./Post";
-import {PostType} from "../../../index";
+import {PostType} from "../../../redux/state";
 
 type PropsType = {
     postsData: Array<PostType>
