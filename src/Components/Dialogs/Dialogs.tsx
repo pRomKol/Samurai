@@ -16,7 +16,7 @@ export function Dialogs(props: PropsType) {
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
                 {props.dialogsData.map(({name, id}) =>
-                    <DialogItem name={name} id={id}/>)}
+                    <DialogItem key={id} name={name} id={id}/>)}
             </div>
             <div className={s.messeges}>
                 {props.messageData.map(({id, message}) =>
