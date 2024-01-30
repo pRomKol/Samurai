@@ -13,13 +13,12 @@ import {DialogsType, LinkType, MessageType, PostType} from "./redux/state";
 
 export type StateType = {
     state: PropsType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: any
 }
 export type PropsType = {
     profilePage: {
         postsData: PostType[]
-        newPostData: any
+        newPostData: string
     }
     navBar: {
         navLink: LinkType[]
@@ -31,15 +30,14 @@ export type PropsType = {
 
 }
 
-function App(props: StateType) {
+function    App(props: StateType) {
     return (
         <div className='app_wrapper'>
             <Header/>
             <NavBar navLink={props.state.navBar.navLink}/>
             <div className='app_wrapper__content'>
-                <Route path='/profile' render={() => <Profile updateNewPostText={props.updateNewPostText}
-                                                              newPostData={props.state.profilePage.newPostData}
-                                                              addPost={props.addPost}
+                <Route path='/profile' render={() => <Profile newPostData={props.state.profilePage.newPostData}
+                                                              dispatch={props.dispatch}
                                                               postsData={props.state.profilePage.postsData}/>}/>
                 <Route path='/dialogs' render={() => <Dialogs messageData={props.state.dialogPage.messageData}
                                                               dialogsData={props.state.dialogPage.dialogsData}/>}/>

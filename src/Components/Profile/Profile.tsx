@@ -1,10 +1,10 @@
 import profile from './Profile.module.css'
 import {MyPosts} from "./MyPosts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostType, updateNewPostText} from "../../redux/state";
+import {PostType} from "../../redux/state";
 
 const ProfileImg = () => {
-    return(
+    return (
         <div>
             <img alt='Backgound' className={profile.main__contentImage}
                  src="https://co10.nevseoboi.com.ua/posts/2011-03/1299190938_01_www.nevseoboi.com.ua.jpg"/>
@@ -15,8 +15,8 @@ const ProfileImg = () => {
 type PropsType = {
     newPostData: any
     postsData: PostType[]
-    addPost: ()=> void
-    updateNewPostText: (newText: string)=> void
+    dispatch: any
+
 
 }
 export const Profile = (props: PropsType) => {
@@ -24,8 +24,7 @@ export const Profile = (props: PropsType) => {
         <div>
             <ProfileImg/>
             <ProfileInfo/>
-            <MyPosts updateNewPostText={props.updateNewPostText}
-                addPost={props.addPost}
+            <MyPosts dispatch={props.dispatch}
                      postsData={props.postsData}
                      newPostData={props.newPostData}/>
         </div>

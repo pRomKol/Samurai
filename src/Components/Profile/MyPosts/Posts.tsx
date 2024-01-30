@@ -1,23 +1,24 @@
 import s from './Posts.module.css'
 import {Post} from "./Post";
-import {PostType} from "../../../redux/state";
+import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/state";
 import React from "react";
 
 type PropsType = {
     newPostData: any;
     postsData: PostType[]
-    addPost: ()=> void
-    updateNewPostText: (newText: string) => void
+    dispatch: any
+
 }
 
 export function MyPosts(props: PropsType) {
     let newPostElement = React.createRef<any>();
     const updateNewPostText = () => {
         let text = newPostElement.current.value
-        props.updateNewPostText(text)
+        props.dispatch(updateNewPostTextAC(text))//НЕ РАБОТАЕТ AC
+
     }
     const addPost = () => {
-        props.addPost()
+        props.dispatch(addPostAC())
     }
     return (
         <div>

@@ -6,7 +6,6 @@ type PropsType = {
 }
 
 export function NavBar(props: PropsType) {
-
     return (
         <nav className={nav.nav}>
             {props.navLink.map(({to, className, activeClassName, value}, index)=> <div> <NavLink key={index} to={to} className={className} activeClassName={activeClassName}>{value}</NavLink> </div> )}
