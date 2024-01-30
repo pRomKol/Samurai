@@ -24,6 +24,8 @@ export type MessageType = {
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 export let store = {
     _state: {
         profilePage: {
@@ -56,6 +58,7 @@ export let store = {
                 {id: 4, name: 'Sasha'},
                 {id: 5, name: 'Viktor'},
             ],
+            newMessageBody: ''
         }
 
     },
@@ -82,18 +85,28 @@ export let store = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostData = action.newText
             store.renderEntireTree(this._state)
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogPage.newMessageBody = action.body
+            store.renderEntireTree(this._state)
+        } else if (action.type === SEND_MESSAGE){
+            let body = this._state.dialogPage.newMessageBody
+            this._state.dialogPage.newMessageBody = ''
+            let newMessage = {id: 6, message: body}
+            this._state.dialogPage.messageData.push(newMessage)
+            store.renderEntireTree(this._state)
         }
 
 
     }
 }
 export const addPostAC = () => ({type: ADD_POST})
-
-
-export const updateNewPostTextAC = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-});
+export const updateNewPostTextAC = (text: string) => (
+    {type: UPDATE_NEW_POST_TEXT, newText: text}
+);
+export const sendMessageAC = () =>({type: SEND_MESSAGE})
+export const updateNewMessageBodyAC = (text: string) => (
+    {type: UPDATE_NEW_MESSAGE_BODY, body: text}
+);
 
 
 //window.store = store;

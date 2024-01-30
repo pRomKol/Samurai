@@ -11,10 +11,10 @@ type PropsType = {
 }
 
 export function MyPosts(props: PropsType) {
-    let newPostElement = React.createRef<any>();
-    const updateNewPostText = () => {
-        let text = newPostElement.current.value
-        props.dispatch(updateNewPostTextAC(text))//НЕ РАБОТАЕТ AC
+
+    const updateNewPostText = (e: any) => {
+        let text = e.currentTarget.value
+        props.dispatch(updateNewPostTextAC(text))
 
     }
     const addPost = () => {
@@ -26,7 +26,7 @@ export function MyPosts(props: PropsType) {
                 My Posts
             </h2>
             <div>
-                <textarea onChange={updateNewPostText} value={props.newPostData} ref={newPostElement}></textarea>
+                <textarea onChange={updateNewPostText} value={props.newPostData}></textarea>
                 <button onClick={addPost}>Add post</button>
             </div>
             <div>

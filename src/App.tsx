@@ -26,11 +26,12 @@ export type PropsType = {
     dialogPage: {
         messageData: MessageType[]
         dialogsData: DialogsType[]
+        newMessageBody: string
     }
 
 }
 
-function    App(props: StateType) {
+function App(props: StateType) {
     return (
         <div className='app_wrapper'>
             <Header/>
@@ -39,8 +40,10 @@ function    App(props: StateType) {
                 <Route path='/profile' render={() => <Profile newPostData={props.state.profilePage.newPostData}
                                                               dispatch={props.dispatch}
                                                               postsData={props.state.profilePage.postsData}/>}/>
-                <Route path='/dialogs' render={() => <Dialogs messageData={props.state.dialogPage.messageData}
-                                                              dialogsData={props.state.dialogPage.dialogsData}/>}/>
+                <Route path='/dialogs' render={() => <Dialogs dispatch={props.dispatch}
+                                                              messageData={props.state.dialogPage.messageData}
+                                                              dialogsData={props.state.dialogPage.dialogsData}
+                                                              newMessageBody={props.state.dialogPage.newMessageBody}/>}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/video' component={Video}/>
                 <Route path='/friends' component={Friends}/>
