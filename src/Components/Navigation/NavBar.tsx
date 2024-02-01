@@ -1,6 +1,6 @@
 import nav from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
-import {LinkType} from "../../redux/state";
+import {LinkType} from "../../redux/store";
 type PropsType = {
     navLink: LinkType[]
 }

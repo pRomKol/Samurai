@@ -1,5 +1,8 @@
 import nav from "../Components/Navigation/NavBar.module.css";
 import {PropsType} from "../App";
+import profileReducer from "./propfileReducer";
+import dialogReducer from "./dialogReducer";
+import navBarReducer from "./navBarReducer";
 
 export  type LinkType = {
     to: string
@@ -21,11 +24,6 @@ export type MessageType = {
     id: number
     message: string
 }
-
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
 export let store = {
     _state: {
         profilePage: {
@@ -36,7 +34,7 @@ export let store = {
             ],
             newPostData: ''
         },
-        navBar: {
+            navBar: {
             navLink: [
                 {to: '/profile', className: nav.item, activeClassName: nav.active, value: 'Profile'},
                 {to: '/dialogs', className: nav.item, activeClassName: nav.active, value: 'Message'},
@@ -62,8 +60,6 @@ export let store = {
         }
 
     },
-    _callBackSubscriber() {
-    },
     getState() {
         return this._state
     },
@@ -73,40 +69,16 @@ export let store = {
         store.renderEntireTree = observer;
     },
     dispatch(action: any) {
-        if (action.type === ADD_POST) {
-            let newPost: PostType = {
-                id: 5,
-                message: this._state.profilePage.newPostData,
-                likeCount: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostData = ''
-            store.renderEntireTree(this._state);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostData = action.newText
-            store.renderEntireTree(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogPage.newMessageBody = action.body
-            store.renderEntireTree(this._state)
-        } else if (action.type === SEND_MESSAGE){
-            let body = this._state.dialogPage.newMessageBody
-            this._state.dialogPage.newMessageBody = ''
-            let newMessage = {id: 6, message: body}
-            this._state.dialogPage.messageData.push(newMessage)
-            store.renderEntireTree(this._state)
-        }
-
-
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
+    this._state.navBar = navBarReducer(this._state.navBar, action)
+    this.renderEntireTree(store)
     }
 }
-export const addPostAC = () => ({type: ADD_POST})
-export const updateNewPostTextAC = (text: string) => (
-    {type: UPDATE_NEW_POST_TEXT, newText: text}
-);
-export const sendMessageAC = () =>({type: SEND_MESSAGE})
-export const updateNewMessageBodyAC = (text: string) => (
-    {type: UPDATE_NEW_MESSAGE_BODY, body: text}
-);
+
+
+
+
 
 
 //window.store = store;

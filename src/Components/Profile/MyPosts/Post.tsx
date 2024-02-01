@@ -1,5 +1,5 @@
 import post from './Post.module.css'
-import {message} from "antd";
+
 import {Like} from "./Likes";
 
 export function Post(props: any) {
