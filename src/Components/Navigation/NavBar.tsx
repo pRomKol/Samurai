@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import {LinkType} from "../../redux/store";
 type PropsType = {
     navLink: LinkType[]
+
 }
 
 export function NavBar(props: PropsType) {

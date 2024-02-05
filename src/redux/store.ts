@@ -4,7 +4,7 @@ import profileReducer from "./propfileReducer";
 import dialogReducer from "./dialogReducer";
 import navBarReducer from "./navBarReducer";
 
-export  type LinkType = {
+export type LinkType = {
     to: string
     className: string
     activeClassName: string

@@ -2,12 +2,13 @@
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-let initialState =  {messageData: [
+let initialState =  {
+    messageData: [
     {id: 1, message: 'yo'},
     {id: 2, message: 'hi!'},
     {id: 3, message: 'how are you?'}
 ],
-    dialogsData: [
+    dialogsData:<any> [
     {id: 1, name: 'Roma'},
     {id: 2, name: 'Katya'},
     {id: 3, name: 'Ira'},

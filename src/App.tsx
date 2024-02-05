@@ -10,10 +10,7 @@ import {Video} from "./Components/Video/Video";
 import {Friends} from "./Components/Friends";
 import {DialogsType, LinkType, MessageType, PostType} from "./redux/store";
 
-export type StateType = {
-    state: PropsType
-    dispatch: any
-}
+
 export type PropsType = {
     profilePage: {
         postsData: PostType[]
@@ -34,14 +31,13 @@ function App(props: any) {
     return (
         <div className='app_wrapper'>
             <Header/>
-            <NavBar navLink={props.state.navBar.navLink}/>
+            <NavBar navLink={props.store.navBar}/>
             <div className='app_wrapper__content'>
                 <Route path='/profile' render={() => <Profile store={props.store}
-                                                              />}/>
-                <Route path='/dialogs' render={() => <Dialogs dispatch={props.dispatch}
-                                                              messageData={props.state.dialogPage.messageData}
-                                                              dialogsData={props.state.dialogPage.dialogsData}
-                                                              newMessageBody={props.state.dialogPage.newMessageBody}/>}/>
+                />}/>
+                <Route path='/dialogs' render={() => <Dialogs message={props.store.messageData}
+                                                              dialogs={props.store.dialogsData}
+                                                              store={props.store}/>}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/video' component={Video}/>
                 <Route path='/friends' component={Friends}/>

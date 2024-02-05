@@ -4,16 +4,11 @@ import dialogReducer from "./dialogReducer";
 import navBarReducer from "./navBarReducer";
 
 let reducers = combineReducers({
-    profilePage: profileReducer,
-    dialogPage: dialogReducer,
-    navBar: navBarReducer,
+    profileReducer,
+    dialogReducer,
+    navBarReducer,
 })
-
-
-// @ts-ignore
 let store = createStore(reducers)
-
-
 
 
 export default store

@@ -18,7 +18,7 @@ let renderEntireTree = (state: any) => {
 
 renderEntireTree(store.getState())
 
-store.subscribe(()=>{
-    let state= store.getState()
+store.subscribe(() => {
+    let state = store.getState()
     renderEntireTree(state)
 })

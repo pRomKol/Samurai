@@ -6,7 +6,7 @@ type PropsType = {
     newPostData: any;
     updateNewPostText: (text: string) => void
     addPost: () => void
-    posts: any
+    posts: any[]
 }
 
 export function MyPosts(props: PropsType) {

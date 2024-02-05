@@ -19,7 +19,7 @@ export function MyPostsContainer(props: PropsType) {
     return (
         <MyPosts addPost={addPost}
                  updateNewPostText={updateNewPostText}
-                 posts={props.store.profilePage.postsData}
+                 posts={state.profilePage.postsData}
                  newPostData={state.profilePage.newPostData}/>
     )
 }
