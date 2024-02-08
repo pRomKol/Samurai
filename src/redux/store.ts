@@ -1,5 +1,4 @@
 import nav from "../Components/Navigation/NavBar.module.css";
-import {PropsType} from "../App";
 import profileReducer from "./propfileReducer";
 import dialogReducer from "./dialogReducer";
 import navBarReducer from "./navBarReducer";
@@ -43,6 +42,7 @@ export let store = {
                 {to: '/friends', className: nav.item, activeClassName: nav.active, value: 'Friends'},
             ],
         },
+
         dialogPage: {
             messageData: [
                 {id: 1, message: 'yo'},
@@ -65,7 +65,7 @@ export let store = {
     },
     renderEntireTree(state: any) {
     },
-    subscribe(observer: (state: PropsType) => void) {
+    subscribe(observer: (state: any) => void) {
         store.renderEntireTree = observer;
     },
     dispatch(action: any) {

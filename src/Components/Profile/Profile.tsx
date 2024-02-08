@@ -12,7 +12,7 @@ const ProfileImg = () => {
 }
 
 type PropsType = {
-    store: any
+    state: any
 
 
 }
@@ -21,7 +21,7 @@ export const Profile = (props: PropsType) => {
         <div>
             <ProfileImg/>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer state={props.state}/>
         </div>
 
     )

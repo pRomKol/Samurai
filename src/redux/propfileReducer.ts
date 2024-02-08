@@ -10,7 +10,15 @@ let initialState = {
     ],
     newPostData: ''
 }
-
+export type PostDataType = {
+    id: number
+    likeCount: number
+    message: string
+}
+export type ProfilePageType = {
+    postsData: PostDataType[]
+    newPostData: string
+}
 const profileReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case ADD_POST:

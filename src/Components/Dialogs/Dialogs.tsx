@@ -2,36 +2,39 @@ import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/Dialogitem";
 import React from "react";
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogReducer";
-
-
+import {DialogType, MessageType, sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogReducer";
+import {Dispatch} from "redux";
 
 
 type PropsType = {
-    store: any
-    dialogs: any
-    message: any
+    dispatch: Dispatch
+    dialogsData: DialogType[]
+    messageData: MessageType[]
+    newMessageBody: string
 }
 
 export function Dialogs(props: PropsType) {
-const onSendMessageClick = () => {
-    props.store.dispatch(sendMessageAC())
-}
-const updateNewMessageBody = (e: any) => {
-    let body = e.currentTarget.value
-    props.store.dispatch(updateNewMessageBodyAC(body))
-}
+
+    debugger
+    const onSendMessageClick = () => {
+        props.dispatch(sendMessageAC())
+    }
+    const updateNewMessageBody = (e: any) => {
+        let body = e.currentTarget.value
+        props.dispatch(updateNewMessageBodyAC(body))
+    }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
-                {props.dialogs.map(({name, id}) =>
+                {props.dialogsData.map(({name, id}) =>
                     <DialogItem key={id} name={name} id={id}/>)}
             </div>
             <div className={s.messeges}>
-                {props.message.map(({id, message}) =>
+                {props.messageData.map(({id, message}) =>
                     <Message key={id} message={message}/>)}
             </div>
-            <textarea placeholder='Enter your message' onChange={updateNewMessageBody} value={props.store.newMessageBody}></textarea>
+            <textarea placeholder='Enter your message' onChange={updateNewMessageBody}
+                      value={props.newMessageBody}></textarea>
             <button onClick={onSendMessageClick}>Send message</button>
         </div>
     )
