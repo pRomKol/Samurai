@@ -35,7 +35,7 @@ let initialState =  {
 ],
     newMessageBody: ''
 }
-const dialogReducer = (state: DialogInitialStateType = initialState, action:any): DialogInitialStateType => {
+export const dialogReducer = (state: DialogInitialStateType = initialState, action:any): DialogInitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.body
@@ -53,4 +53,4 @@ export const sendMessageAC = () =>({type: SEND_MESSAGE})
 export const updateNewMessageBodyAC = (text: string) => (
     {type: UPDATE_NEW_MESSAGE_BODY, body: text}
 );
-export default dialogReducer
+// export default dialogReducer

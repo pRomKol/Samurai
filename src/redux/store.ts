@@ -1,7 +1,7 @@
 import nav from "../Components/Navigation/NavBar.module.css";
-import profileReducer from "./propfileReducer";
-import dialogReducer from "./dialogReducer";
 import navBarReducer from "./navBarReducer";
+import {profileReducer} from "./propfileReducer";
+import {dialogReducer} from "./dialogReducer";
 
 export type LinkType = {
     to: string

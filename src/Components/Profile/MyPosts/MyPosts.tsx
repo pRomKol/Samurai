@@ -11,7 +11,6 @@ type PropsType = {
 }
 
 export function MyPosts(props: PropsType) {
-debugger
     const updateNewPostText = (e: any) => {
         let text = e.currentTarget.value
         props.updateNewPostText(text)

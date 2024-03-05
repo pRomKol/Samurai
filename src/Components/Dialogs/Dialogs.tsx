@@ -7,22 +7,15 @@ import {Dispatch} from "redux";
 
 
 type PropsType = {
-    dispatch: Dispatch
+    onSendMessageClick: ()  =>void
+    //dispatch: Dispatch
     dialogsData: DialogType[]
     messageData: MessageType[]
     newMessageBody: string
+    updateNewMessageBody:(e:any)=>void
 }
 
 export function Dialogs(props: PropsType) {
-
-    debugger
-    const onSendMessageClick = () => {
-        props.dispatch(sendMessageAC())
-    }
-    const updateNewMessageBody = (e: any) => {
-        let body = e.currentTarget.value
-        props.dispatch(updateNewMessageBodyAC(body))
-    }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -33,9 +26,9 @@ export function Dialogs(props: PropsType) {
                 {props.messageData.map(({id, message}) =>
                     <Message key={id} message={message}/>)}
             </div>
-            <textarea placeholder='Enter your message' onChange={updateNewMessageBody}
+            <textarea placeholder='Enter your message' onChange={props.updateNewMessageBody}
                       value={props.newMessageBody}></textarea>
-            <button onClick={onSendMessageClick}>Send message</button>
+            <button onClick={props.onSendMessageClick}>Send message</button>
         </div>
     )
 }

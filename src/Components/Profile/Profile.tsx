@@ -1,6 +1,8 @@
 import profile from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/PostsContainer";
+import React from "react";
+import {MyPostContainer} from "./MyPosts/PostsContainer";
+
 
 const ProfileImg = () => {
     return (
@@ -12,16 +14,18 @@ const ProfileImg = () => {
 }
 
 type PropsType = {
-    state: any
-
-
+    // state: AppStateType
+    // dispatch: Dispatch
 }
+
+
+
 export const Profile = (props: PropsType) => {
     return (
         <div>
             <ProfileImg/>
             <ProfileInfo/>
-            <MyPostsContainer state={props.state}/>
+            <MyPostContainer/>
         </div>
 
     )
