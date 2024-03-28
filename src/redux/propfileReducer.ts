@@ -10,6 +10,8 @@ let initialState = {
     ],
     newPostData: ''
 }
+type StateType = typeof initialState
+
 export type PostDataType = {
     id: number
     likeCount: number
@@ -19,7 +21,7 @@ export type ProfilePageType = {
     postsData: PostDataType[]
     newPostData: string
 }
-export const profileReducer = (state = initialState, action:any) => {
+export const profileReducer = (state: StateType = initialState, action:any): StateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostType = {
@@ -31,13 +33,12 @@ export const profileReducer = (state = initialState, action:any) => {
             stateCopy.postsData = [...state.postsData]
             stateCopy.postsData.push(newPost)
             stateCopy.newPostData = ''
-            //store.renderEntireTree(state);
+            console.log(stateCopy)
             return stateCopy;
         }
         case UPDATE_NEW_POST_TEXT:
             let stateCopy = {...state}
             stateCopy.newPostData = action.newText
-            //store.renderEntireTree(state)
             return stateCopy;
         default: return state;
     }
@@ -46,6 +47,6 @@ export const profileReducer = (state = initialState, action:any) => {
 export const updateNewPostTextAC = (text: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: text}
 );
-export const addPostAC = () => ({type: ADD_POST})
+export const addPostAC = () => {return{type: ADD_POST} }
 
 

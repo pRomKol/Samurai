@@ -8,6 +8,7 @@ import {Music} from "./Components/Music/Music";
 import {Video} from "./Components/Video/Video";
 import {Friends} from "./Components/Friends";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer/DialogsContainer";
+import {Users} from "./Components/Users/Users";
 
 
 
@@ -34,7 +35,6 @@ import {DialogsContainer} from "./Components/Dialogs/DialogsContainer/DialogsCon
 // }
 
 function App(props: any ) {
-    //PropsType
     return (
         <div className='app_wrapper'>
             <Header/>
@@ -45,6 +45,8 @@ function App(props: any ) {
                 <Route path='/dialogs' render={() =>
                     <DialogsContainer/>}/>
                 <Route path='/music' component={Music}/>
+                <Route path='/users' render={() =>
+                    <Users/>}/>
                 <Route path='/video' component={Video}/>
                 <Route path='/friends' component={Friends}/>
             </div>
