@@ -8,7 +8,8 @@ import {Music} from "./Components/Music/Music";
 import {Video} from "./Components/Video/Video";
 import {Friends} from "./Components/Friends";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer/DialogsContainer";
-import {Users} from "./Components/Users/Users";
+
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 
@@ -46,7 +47,7 @@ function App(props: any ) {
                     <DialogsContainer/>}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/users' render={() =>
-                    <Users/>}/>
+                    <UsersContainer/>}/>
                 <Route path='/video' component={Video}/>
                 <Route path='/friends' component={Friends}/>
             </div>

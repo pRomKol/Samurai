@@ -3,6 +3,7 @@ const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 
+ type ActionsType = SendMessageAC | UpdateNewMessageBodyAC
 export type DialogType = {
     id: number
     name: string
@@ -35,7 +36,7 @@ let initialState =  {
 ],
     newMessageBody: ''
 }
-export const dialogReducer = (state: DialogInitialStateType = initialState, action:any): DialogInitialStateType => {
+export const dialogReducer = (state: DialogInitialStateType = initialState, action:ActionsType): DialogInitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             const copyState= {...state}
@@ -56,3 +57,11 @@ export const updateNewMessageBodyAC = (text: string) => (
     {type: UPDATE_NEW_MESSAGE_BODY, body: text}
 );
 // export default dialogReducer
+//types
+type SendMessageAC = {
+    type: typeof SEND_MESSAGE
+}
+type UpdateNewMessageBodyAC = {
+    type: typeof UPDATE_NEW_MESSAGE_BODY
+    body: string
+}

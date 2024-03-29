@@ -1,4 +1,5 @@
 import {PostType} from "./store";
+import {types} from "util";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -10,6 +11,7 @@ let initialState = {
     ],
     newPostData: ''
 }
+type ActionType = UpdateNewPostText | AddPost
 type StateType = typeof initialState
 
 export type PostDataType = {
@@ -21,7 +23,7 @@ export type ProfilePageType = {
     postsData: PostDataType[]
     newPostData: string
 }
-export const profileReducer = (state: StateType = initialState, action:any): StateType => {
+export const profileReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostType = {
@@ -47,6 +49,15 @@ export const profileReducer = (state: StateType = initialState, action:any): Sta
 export const updateNewPostTextAC = (text: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: text}
 );
-export const addPostAC = () => {return{type: ADD_POST} }
+export const addPostAC = () => ({type: ADD_POST} )
+
+//types
+type AddPost = {
+    type: typeof ADD_POST
+}
+type UpdateNewPostText = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText: string
+}
 
 
