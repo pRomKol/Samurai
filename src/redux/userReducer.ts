@@ -1,8 +1,9 @@
-import {AppStateType} from "./redux-store";
-
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_USERS_COUNT = 'SET_USERS_COUNT'
+
 
 export type UsersType = {
     name: string
@@ -17,13 +18,20 @@ export type UsersType = {
 }
 
 
-
-
-const initialState: { users: UsersType[] } = {
-    users: []
+const initialState: { users: UsersType[], pageSize: number, totalUsersCount: number, currentPage: number } = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 20,
+    currentPage: 2
 }
-export type ActionsType = UnFollowTypeAC | FollowTypeAC | setUsersTypeAC
-export const usersReducer = (state = initialState, action: ActionsType): { users: UsersType[] } => {
+
+export type ActionsType = UnFollowTypeAC | FollowTypeAC | SetUsersTypeAC | SetCurrentPageAC | SetUserCountAC
+export const usersReducer = (state = initialState, action: ActionsType): {
+    users: UsersType[],
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
+} => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -34,7 +42,6 @@ export const usersReducer = (state = initialState, action: ActionsType): { users
                     return u
                 })
             }
-
         case UNFOLLOW:
             return {
                 ...state, users: state.users.map(u => {
@@ -45,9 +52,16 @@ export const usersReducer = (state = initialState, action: ActionsType): { users
                 })
             }
         case SET_USERS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
         }
-
+        case SET_CURRENT_PAGE: {
+            return {
+                ...state, currentPage: action.pageNumber
+            }
+        }
+        case SET_USERS_COUNT: {
+            return {...state,totalUsersCount: action.usersCount}
+        }
         default:
             return state
 
@@ -55,10 +69,13 @@ export const usersReducer = (state = initialState, action: ActionsType): { users
 }
 export const followAC = (userID: number): FollowTypeAC => ({type: FOLLOW, userID})
 export const unFollowAC = (userID: number): UnFollowTypeAC => ({type: UNFOLLOW, userID})
-export const setUsersAC = (users: UsersType[]): setUsersTypeAC => ({type: SET_USERS, users})
+export const setUsersAC = (users: UsersType[]): SetUsersTypeAC => ({type: SET_USERS, users})
+export const setCurrentPageAC = (pageNumber: number): SetCurrentPageAC => ({type: SET_CURRENT_PAGE, pageNumber})
+export const setUsersCountAC = (usersCount: number): SetUserCountAC => ({type: SET_USERS_COUNT, usersCount})
 
 
-//types
+
+//actions types
 type UnFollowTypeAC = {
     type: typeof UNFOLLOW,
     userID: number
@@ -67,7 +84,15 @@ type FollowTypeAC = {
     type: typeof FOLLOW,
     userID: number
 }
-type setUsersTypeAC = {
+type SetUsersTypeAC = {
     type: typeof SET_USERS,
     users: UsersType[]
+}
+type SetCurrentPageAC = {
+    type: typeof SET_CURRENT_PAGE,
+    pageNumber: number
+}
+type SetUserCountAC = {
+    type: typeof SET_USERS_COUNT,
+    usersCount: number
 }
