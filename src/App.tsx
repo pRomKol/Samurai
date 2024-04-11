@@ -8,32 +8,9 @@ import {Music} from "./Components/Music/Music";
 import {Video} from "./Components/Video/Video";
 import {Friends} from "./Components/Friends";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer/DialogsContainer";
-
 import UsersContainer from "./Components/Users/UsersContainer";
 
 
-
-
-// export type PropsType = {
-//     profilePage: {
-//         postsData: PostType[]
-//         newPostData: string
-//     }
-//     navBar: {
-//         navLink: LinkType[]
-//     }
-//     dialogPage: {
-//         messageData: MessageType[]
-//         dialogsData: DialogsType[]
-//         newMessageBody: string
-//     }
-//
-// }
-
-// type PropsType = {
-//     state: AppStateType
-//     dispatch: Dispatch
-// }
 
 function App(props: any ) {
     return (
