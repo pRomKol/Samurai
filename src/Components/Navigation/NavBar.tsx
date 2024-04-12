@@ -1,9 +1,14 @@
 import nav from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
-import {LinkType} from "../../redux/store";
 type PropsType = {
     navLink: LinkType[]
 }
+ export type LinkType = {
+     to: string
+     className: string
+     activeClassName: string
+     value: string
+ }
 
 export function NavBar(props: PropsType) {
     return (

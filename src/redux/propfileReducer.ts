@@ -1,18 +1,21 @@
-import {PostType} from "./store";
-import {types} from "util";
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 let initialState = {
     postsData: [
         {id: 1, likeCount: 5, message: 'Hi, how are you?'},
         {id: 2, likeCount: 15, message: 'It\'s my first post!'},
         {id: 3, likeCount: 10, message: 'Yo!'},
+
     ],
-    newPostData: ''
+    newPostData: '',
+    profile: null
 }
-type ActionType = UpdateNewPostText | AddPost
+type ActionType = UpdateNewPostText | AddPost | SetUserProfile
 type StateType = typeof initialState
+
 
 export type PostDataType = {
     id: number
@@ -26,7 +29,7 @@ export type ProfilePageType = {
 export const profileReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case ADD_POST: {
-            let newPost: PostType = {
+            let newPost: PostDataType = {
                 id: 5,
                 message: state.newPostData,
                 likeCount: 0
@@ -42,6 +45,9 @@ export const profileReducer = (state: StateType = initialState, action: ActionTy
             let stateCopy = {...state}
             stateCopy.newPostData = action.newText
             return stateCopy;
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
+        }
         default: return state;
     }
 }
@@ -49,6 +55,9 @@ export const profileReducer = (state: StateType = initialState, action: ActionTy
 export const updateNewPostTextAC = (text: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: text}
 );
+export const setUserProfile = (profile: any) => (
+    {type: SET_USER_PROFILE, profile}
+)
 export const addPostAC = () => ({type: ADD_POST} )
 
 //types
@@ -60,4 +69,8 @@ type UpdateNewPostText = {
     newText: string
 }
 
+type SetUserProfile = {
+    type: typeof SET_USER_PROFILE
+    profile: any
+}
 
