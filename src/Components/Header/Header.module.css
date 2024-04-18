@@ -4,6 +4,11 @@
 .header{
     grid-area: header;
     background-color: rgba(100, 0, 183, 0.89);
+    display: flex;
 }
 .header.header__logo{
+}
+
+.loginBlock {
+float: right;
 }

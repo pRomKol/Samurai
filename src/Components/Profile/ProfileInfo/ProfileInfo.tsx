@@ -4,7 +4,7 @@ import React from "react";
 import {Preloader} from "../../Common/Preloader";
 
 export const ProfileInfo = (props: any) => {
-    debugger
+   // debugger
     if(!props.profile){
         return <Preloader/>
     }
@@ -18,7 +18,7 @@ export const ProfileInfo = (props: any) => {
             <div>
                 <img className={s.avatar__image}
                      src={props.profile.photos.large} alt={'avatar'}/>
-                + description
+                <span> {props.profile.aboutMe}</span>
             </div>
 
         </div>
