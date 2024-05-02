@@ -8,7 +8,7 @@ let initialState = {navLink: [
         {to: '/video', className: nav.item, activeClassName: nav.active, value: 'Video'},
         {to: '/friends', className: nav.item, activeClassName: nav.active, value: 'Friends'},
     ],}
-const navBarReducer = (state = initialState, action: any) => {
+export const navBarReducer = (state = initialState, action: any) => {
     return state;
 }
-export default navBarReducer;
+

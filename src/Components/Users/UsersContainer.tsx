@@ -1,21 +1,20 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {Dispatch} from 'redux';
 import {
     followAC,
     setCurrentPageAC,
     setFetchingAC,
+    setFollowingInProgressAC,
     setUsersAC,
     setUsersCountAC,
     unFollowAC,
     UsersType
 }
-from "../../redux/userReducer";
+    from "../../redux/userReducer";
 import React from 'react';
-import axios from 'axios';
 import {Users} from './Users';
-
 import {Preloader} from "../Common/Preloader";
+import {getUsers} from "../../api/api";
 
 type ResponseType<G> = {
     items: G
@@ -34,32 +33,39 @@ export type PropsType = {
     setTotalUsersCount: (usersCount: number) => void
     isFetching: boolean
     setFetching: (isFetching: boolean) => void
+    setFollowingInProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: any[]
 }
 
 export class UsersAPIContainer extends React.Component<PropsType, any> {
     componentDidMount() {
-        this.props.setFetching(true)
-        axios.get<ResponseType<UsersType[]>>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        this.props.setFetching(true);
+        getUsers(this.props.currentPage, this.props.pageSize)
             .then(response => {
                 this.props.setFetching(false)
-                this.props.setUsers(response.data.items);
-                    this.props.setTotalUsersCount(response.data.totalCount)
-                }
-            );
+                this.props.setUsers(response.items);
+                this.props.setTotalUsersCount(response.totalCount);
+            })
+
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setFetching(true)
+
         this.props.setCurrentPage(pageNumber);
-        axios.get<ResponseType<UsersType[]>>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => this.props.setUsers(response.data.items))
+        getUsers(pageNumber, this.props.pageSize)
+            .then(response => this.props.setUsers(response.items))
         this.props.setFetching(false)
     }
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/>: null   }
-            <Users totalUsersCount={this.props.totalUsersCount}
+            {this.props.isFetching ?
+                <Preloader/> : null}
+            <Users
+                followingInProgress={this.props.followingInProgress}
+                setFollowingInProgress={this.props.setFollowingInProgress}
+                totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    onPageChanged={this.onPageChanged}
@@ -72,20 +78,25 @@ export class UsersAPIContainer extends React.Component<PropsType, any> {
     }
 }
 
-let mapStateToProps = (state: AppStateType) => {
-    return {
-        users: state.usersReducer.users,
-        pageSize: state.usersReducer.pageSize,
-        totalUsersCount: state.usersReducer.totalUsersCount,
-        currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching
+let
+    mapStateToProps = (state: AppStateType) => {
+        return {
+            users: state.usersReducer.users,
+            pageSize: state.usersReducer.pageSize,
+            totalUsersCount: state.usersReducer.totalUsersCount,
+            currentPage: state.usersReducer.currentPage,
+            isFetching: state.usersReducer.isFetching,
+            followingInProgress: state.usersReducer.followingInProgress
+
+        }
     }
-}
- export const UsersContainer = connect(mapStateToProps, {
-    follow: followAC,
-    unFollow: unFollowAC,
-    setUsers: setUsersAC,
-    setCurrentPage: setCurrentPageAC,
-    setTotalUsersCount: setUsersCountAC,
-    setFetching: setFetchingAC
-})(UsersAPIContainer);
+export const
+    UsersContainer = connect(mapStateToProps, {
+        follow: followAC,
+        unFollow: unFollowAC,
+        setUsers: setUsersAC,
+        setCurrentPage: setCurrentPageAC,
+        setTotalUsersCount: setUsersCountAC,
+        setFetching: setFetchingAC,
+        setFollowingInProgress: setFollowingInProgressAC
+    })(UsersAPIContainer);
