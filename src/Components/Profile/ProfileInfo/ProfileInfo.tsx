@@ -1,14 +1,14 @@
-import s from "../ProfileInfo/ProfileInfo.module.css";
-import profile from "../Profile.module.css";
-import React from "react";
-import {Preloader} from "../../Common/Preloader";
+import s from '../ProfileInfo/ProfileInfo.module.css';
+import profile from '../Profile.module.css';
+import React from 'react';
+import {Preloader} from '../../Common/Preloader';
+import avatar from '../../../assets/img/icon-256x256.png';
 
 export const ProfileInfo = (props: any) => {
    // debugger
     if(!props.profile){
         return <Preloader/>
     }
-
     return (
         <div>
             <div>
@@ -17,7 +17,7 @@ export const ProfileInfo = (props: any) => {
             </div>
             <div>
                 <img className={s.avatar__image}
-                     src={props.profile.photos.large} alt={'avatar'}/>
+                     src={props.profile.photos.large ? props.profile.photos.large : avatar } alt={'avatar'}/>
                 <span> {props.profile.aboutMe}</span>
             </div>
 

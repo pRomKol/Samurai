@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 
 const ADD_POST = 'ADD-POST'
@@ -58,7 +60,13 @@ export const updateNewPostTextAC = (text: string) => (
 export const setUserProfile = (profile: any) => (
     {type: SET_USER_PROFILE, profile}
 )
+export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(res => dispatch(setUserProfile(res.data)))
+}
 export const addPostAC = () => ({type: ADD_POST} )
+
+
 
 //types
 type AddPost = {

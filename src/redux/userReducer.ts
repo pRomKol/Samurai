@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = 'SET_USERS'
@@ -110,6 +113,37 @@ export const setFetchingAC = (isFetching: boolean): SetFetchingAC =>
     ({type: TOGGLE_IS_FETCHING, isFetching})
 export const setFollowingInProgressAC = (isFetching: boolean, userId: number): SetFollowingInProgressAC =>
     ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+   dispatch(setFetchingAC(true));
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(response => {
+            dispatch(setFetchingAC(false))
+            dispatch(setUsersAC(response.items));
+            dispatch(setUsersCountAC(response.totalCount));
+        })
+}
+export const followTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingInProgressAC(true, userId))
+    usersAPI.follow(userId)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(followAC(userId))
+            }
+            dispatch(setFollowingInProgressAC(false, userId))
+
+        })
+}
+export const unFollowTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingInProgressAC(true, userId))
+    usersAPI.unFollow(userId)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(unFollowAC(userId))
+            }
+            dispatch(setFollowingInProgressAC(false, userId))
+
+        })
+}
 
 
 //actions types
@@ -142,3 +176,4 @@ type SetFollowingInProgressAC = {
     isFetching: boolean
     userId: number
 }
+

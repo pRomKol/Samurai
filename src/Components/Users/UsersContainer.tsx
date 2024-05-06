@@ -1,61 +1,43 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {
-    followAC,
+    followTC, getUsersTC,
     setCurrentPageAC,
-    setFetchingAC,
     setFollowingInProgressAC,
-    setUsersAC,
-    setUsersCountAC,
-    unFollowAC,
+    unFollowTC,
     UsersType
 }
     from "../../redux/userReducer";
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../Common/Preloader";
-import {getUsers} from "../../api/api";
 
-type ResponseType<G> = {
-    items: G
-    totalCount: number
-}
+
+
+
 
 export type PropsType = {
     users: UsersType[]
-    setCurrentPage: (pageNumber: number) => void
-    follow: (usedID: number) => void
-    unFollow: (usedID: number) => void
-    setUsers: (users: UsersType[]) => void
+
+    unFollow: (usedId: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    setTotalUsersCount: (usersCount: number) => void
     isFetching: boolean
-    setFetching: (isFetching: boolean) => void
     setFollowingInProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: any[]
+    getUsers:(currentPage: number, pageSize: number) => void
+    follow: ( userId:number) => void
 }
 
 export class UsersAPIContainer extends React.Component<PropsType, any> {
     componentDidMount() {
-        this.props.setFetching(true);
-        getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response => {
-                this.props.setFetching(false)
-                this.props.setUsers(response.items);
-                this.props.setTotalUsersCount(response.totalCount);
-            })
-
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setFetching(true)
+        this.props.getUsers(pageNumber, this.props.pageSize)
 
-        this.props.setCurrentPage(pageNumber);
-        getUsers(pageNumber, this.props.pageSize)
-            .then(response => this.props.setUsers(response.items))
-        this.props.setFetching(false)
     }
 
     render() {
@@ -92,11 +74,10 @@ let
     }
 export const
     UsersContainer = connect(mapStateToProps, {
-        follow: followAC,
-        unFollow: unFollowAC,
-        setUsers: setUsersAC,
+        unFollow: unFollowTC,
         setCurrentPage: setCurrentPageAC,
-        setTotalUsersCount: setUsersCountAC,
-        setFetching: setFetchingAC,
-        setFollowingInProgress: setFollowingInProgressAC
+        setFollowingInProgress: setFollowingInProgressAC,
+        getUsers: getUsersTC,
+        follow: followTC
+
     })(UsersAPIContainer);

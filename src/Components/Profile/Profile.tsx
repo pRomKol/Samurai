@@ -1,4 +1,3 @@
-import profile from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import React from "react";
 import {MyPostContainer} from "./MyPosts/PostsContainer";

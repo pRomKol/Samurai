@@ -3,7 +3,7 @@ import styles from "./users.module.css";
 import avatar from "../../assets/img/icon-256x256.png";
 import {UsersType} from "../../redux/userReducer";
 import {NavLink} from "react-router-dom";
-import axios, {Axios} from "axios";
+
 
 
 type PropsType = {
@@ -44,26 +44,10 @@ export const Users = (props: PropsType) => {
                         <div>
                             {u.followed ?
                                 <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.setFollowingInProgress(true, u.id)
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true})
-                                        .then(res => {
-                                            if (res.data.resultCode === 0) {
-                                                props.unFollow(u.id)
-                                            }
-                                            props.setFollowingInProgress(false, u.id)
-                                        })
-
+                                    props.unFollow(u.id)
                                 }}>UnFollow</button> :
                                 <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.setFollowingInProgress(true, u.id)
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true})
-                                        .then(res => {
-                                            if (res.data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.setFollowingInProgress(false, u.id)
-
-                                        })
+                                    props.follow(u.id)
                                 }}>Follow</button>}
                             </div>
                     </span>
