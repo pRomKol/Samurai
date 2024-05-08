@@ -10,6 +10,7 @@ import {UsersContainer} from "./Components/Users/UsersContainer";
 
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {ProfileContainer} from "./Components/Profile/ProfileContainer";
+import {Login} from "./Components/Login/Login";
 
 
 
@@ -28,6 +29,7 @@ function App(props: any ) {
                     <UsersContainer/>}/>
                 <Route path='/video' component={Video}/>
                 <Route path='/friends' component={Friends}/>
+                <Route path='/login' component={Login}/>
             </div>
         </div>
 
