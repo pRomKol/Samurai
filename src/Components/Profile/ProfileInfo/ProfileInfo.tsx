@@ -4,11 +4,13 @@ import React from 'react';
 import {Preloader} from '../../Common/Preloader';
 import avatar from '../../../assets/img/icon-256x256.png';
 
+
 export const ProfileInfo = (props: any) => {
    // debugger
     if(!props.profile){
         return <Preloader/>
     }
+
     return (
         <div>
             <div>

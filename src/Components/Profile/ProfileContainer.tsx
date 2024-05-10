@@ -1,11 +1,11 @@
 import React, {FC} from "react";
 import {Profile} from "./Profile";
-
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {getUserProfileTC, setUserProfile} from "../../redux/propfileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type PropsType = {
@@ -13,6 +13,7 @@ type PropsType = {
     getUserProfile:(userId: number)=> void
     profile: ProfileType | null
     match: any
+    isAuth: boolean
 
 }
 
@@ -45,6 +46,7 @@ export class ProfileAPIContainer extends React.Component<PropsType> {
         this.props.getUserProfile(userId)
     }
     render() {
+
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
@@ -52,9 +54,11 @@ export class ProfileAPIContainer extends React.Component<PropsType> {
 
 }
 
+let AuthRedirectComponent = WithAuthRedirect(ProfileAPIContainer)
+
 let mapStateToProps = (state: AppStateType) => {
     return {
-        profile: state.profileReducer.profile
+        profile: state.profileReducer.profile,
     }
 }
 
@@ -63,4 +67,4 @@ let mapStateToProps = (state: AppStateType) => {
 export const ProfileContainer = compose<FC>(withRouter, connect(mapStateToProps, {
      setUserProfile,
      getUserProfile: getUserProfileTC
- })) (ProfileAPIContainer)
+ })) (AuthRedirectComponent)

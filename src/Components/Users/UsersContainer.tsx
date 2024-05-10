@@ -11,6 +11,9 @@ import {
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../Common/Preloader";
+import {Redirect} from "react-router-dom";
+
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 
@@ -18,7 +21,6 @@ import {Preloader} from "../Common/Preloader";
 
 export type PropsType = {
     users: UsersType[]
-
     unFollow: (usedId: number) => void
     totalUsersCount: number
     pageSize: number
@@ -34,16 +36,16 @@ export class UsersAPIContainer extends React.Component<PropsType, any> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
-
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
-
     }
 
     render() {
         return <>
-            {this.props.isFetching ?
-                <Preloader/> : null}
+            {
+                this.props.isFetching ?
+                <Preloader/> : null
+            }
             <Users
                 followingInProgress={this.props.followingInProgress}
                 setFollowingInProgress={this.props.setFollowingInProgress}
@@ -68,10 +70,14 @@ let
             totalUsersCount: state.usersReducer.totalUsersCount,
             currentPage: state.usersReducer.currentPage,
             isFetching: state.usersReducer.isFetching,
-            followingInProgress: state.usersReducer.followingInProgress
+            followingInProgress: state.usersReducer.followingInProgress,
+
 
         }
     }
+
+let AuthRedirectComponent = WithAuthRedirect(UsersAPIContainer)
+
 export const
     UsersContainer = connect(mapStateToProps, {
         unFollow: unFollowTC,
@@ -79,5 +85,4 @@ export const
         setFollowingInProgress: setFollowingInProgressAC,
         getUsers: getUsersTC,
         follow: followTC
-
-    })(UsersAPIContainer);
+    })(AuthRedirectComponent);

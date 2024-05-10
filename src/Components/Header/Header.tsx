@@ -5,7 +5,6 @@ import {NavLink} from "react-router-dom";
      login: string
  }
 export function Header(props: any) {
-    debugger
      return (
         <header className={s.header}>
 

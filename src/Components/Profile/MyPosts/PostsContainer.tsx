@@ -12,13 +12,13 @@ type PropsType = {
 }
 
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: AppStateType) => {
     return{
         postsData: state.profileReducer.postsData,
         newPostData: state.profileReducer.newPostData
     }
 }
-let mapDispatchToProps = (dispatch: any) =>{
+let mapDispatchToProps = (dispatch: Dispatch) =>{
     return {
         addPost:()=>{dispatch(addPostAC())},
         updateNewPostText:(text: string)=>{dispatch(updateNewPostTextAC(text))}
