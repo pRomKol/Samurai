@@ -3,11 +3,12 @@ import profile from '../Profile.module.css';
 import React from 'react';
 import {Preloader} from '../../Common/Preloader';
 import avatar from '../../../assets/img/icon-256x256.png';
+import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 
 
 export const ProfileInfo = (props: any) => {
-   // debugger
-    if(!props.profile){
+    // debugger
+    if (!props.profile) {
         return <Preloader/>
     }
 
@@ -19,8 +20,8 @@ export const ProfileInfo = (props: any) => {
             </div>
             <div>
                 <img className={s.avatar__image}
-                     src={props.profile.photos.large ? props.profile.photos.large : avatar } alt={'avatar'}/>
-                <span> {props.profile.aboutMe}</span>
+                     src={props.profile.photos.large ? props.profile.photos.large : avatar} alt={'avatar'}/>
+                <ProfileStatus status={'sasai kudasai'}/>
             </div>
 
         </div>

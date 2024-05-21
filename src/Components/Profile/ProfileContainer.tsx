@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getUserProfileTC, setUserProfile} from "../../redux/propfileReducer";
+import {getUserProfileTC, setUserProfileAC} from "../../redux/propfileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
@@ -54,7 +54,7 @@ export class ProfileAPIContainer extends React.Component<PropsType> {
 
 }
 
-let AuthRedirectComponent = WithAuthRedirect(ProfileAPIContainer)
+
 
 let mapStateToProps = (state: AppStateType) => {
     return {
@@ -63,8 +63,10 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 
-
-export const ProfileContainer = compose<FC>(withRouter, connect(mapStateToProps, {
-     setUserProfile,
+export const ProfileContainer = compose<FC>(
+    //WithAuthRedirect,
+    withRouter,
+    connect(mapStateToProps, {
+     setUserProfile: setUserProfileAC,
      getUserProfile: getUserProfileTC
- })) (AuthRedirectComponent)
+ })) (ProfileAPIContainer)

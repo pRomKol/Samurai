@@ -8,12 +8,13 @@ import {
     UsersType
 }
     from "../../redux/userReducer";
-import React from 'react';
+import React, {FC} from 'react';
 import {Users} from './Users';
 import {Preloader} from "../Common/Preloader";
 import {Redirect} from "react-router-dom";
 
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -76,13 +77,14 @@ let
         }
     }
 
-let AuthRedirectComponent = WithAuthRedirect(UsersAPIContainer)
 
-export const
-    UsersContainer = connect(mapStateToProps, {
-        unFollow: unFollowTC,
-        setCurrentPage: setCurrentPageAC,
-        setFollowingInProgress: setFollowingInProgressAC,
-        getUsers: getUsersTC,
-        follow: followTC
-    })(AuthRedirectComponent);
+
+export const UsersContainer =
+compose<FC>( WithAuthRedirect,
+    connect (mapStateToProps, {
+    unFollow: unFollowTC,
+    setCurrentPage: setCurrentPageAC,
+    setFollowingInProgress: setFollowingInProgressAC,
+    getUsers: getUsersTC,
+    follow: followTC
+}))(UsersAPIContainer)

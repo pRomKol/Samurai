@@ -57,12 +57,12 @@ export const profileReducer = (state: StateType = initialState, action: ActionTy
 export const updateNewPostTextAC = (text: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: text}
 );
-export const setUserProfile = (profile: any) => (
+export const setUserProfileAC = (profile: any) => (
     {type: SET_USER_PROFILE, profile}
 )
 export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId)
-        .then(res => dispatch(setUserProfile(res.data)))
+        .then(res => dispatch(setUserProfileAC(res.data)))
 }
 export const addPostAC = () => ({type: ADD_POST} )
 
