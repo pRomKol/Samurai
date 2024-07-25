@@ -19,8 +19,12 @@ let mapStateToProps = (state: AppStateType) =>{
 }
 let mapDispatchToProps = (dispatch: Dispatch) =>{
     return {
-        updateNewMessageBody: (body: string) => {dispatch(updateNewMessageBodyAC(body))},
-        onSendMessageClick:() => {dispatch(sendMessageAC())},
+        updateNewMessageBody: (body: string) => {
+            dispatch(updateNewMessageBodyAC(body))
+        },
+        onSendMessageClick:() => {
+            dispatch(sendMessageAC())
+        },
 
     }
 }

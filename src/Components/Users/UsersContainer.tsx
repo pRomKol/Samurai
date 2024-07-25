@@ -11,8 +11,6 @@ import {
 import React, {FC} from 'react';
 import {Users} from './Users';
 import {Preloader} from "../Common/Preloader";
-import {Redirect} from "react-router-dom";
-
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
@@ -31,14 +29,17 @@ export type PropsType = {
     followingInProgress: any[]
     getUsers:(currentPage: number, pageSize: number) => void
     follow: ( userId:number) => void
+    setCurrentPage:(currentPage: number )=> void
 }
 
 export class UsersAPIContainer extends React.Component<PropsType, any> {
+
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.setCurrentPage(pageNumber)
     }
 
     render() {

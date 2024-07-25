@@ -5,9 +5,12 @@ import {Preloader} from '../../Common/Preloader';
 import avatar from '../../../assets/img/icon-256x256.png';
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 
-
-export const ProfileInfo = (props: any) => {
-    // debugger
+type PropsType = {
+    profile: any
+    status: string
+    updateStatus:(status: string) => void
+}
+export const ProfileInfo = (props: PropsType) => {
     if (!props.profile) {
         return <Preloader/>
     }
@@ -21,7 +24,7 @@ export const ProfileInfo = (props: any) => {
             <div>
                 <img className={s.avatar__image}
                      src={props.profile.photos.large ? props.profile.photos.large : avatar} alt={'avatar'}/>
-                <ProfileStatus status={'sasai kudasai'}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
 
         </div>

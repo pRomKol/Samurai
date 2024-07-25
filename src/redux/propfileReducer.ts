@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_POST = 'ADD_POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_STATUS = 'SET_STATUS'
 let initialState = {
     postsData: [
         {id: 1, likeCount: 5, message: 'Hi, how are you?'},
@@ -13,9 +14,10 @@ let initialState = {
 
     ],
     newPostData: '',
-    profile: null
+    profile: null,
+    status: ''
 }
-type ActionType = UpdateNewPostText | AddPost | SetUserProfile
+type ActionType = UpdateNewPostText | AddPost | SetUserProfile | SetStatus
 type StateType = typeof initialState
 
 
@@ -26,8 +28,10 @@ export type PostDataType = {
 }
 export type ProfilePageType = {
     postsData: PostDataType[]
-    newPostData: string
+    newPostData: string,
+    status: string
 }
+
 export const profileReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case ADD_POST: {
@@ -50,12 +54,19 @@ export const profileReducer = (state: StateType = initialState, action: ActionTy
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
-        default: return state;
+        case SET_STATUS: {
+            return {...state, status: action.newStatus}
+        }
+        default:
+            return state;
     }
 }
 
 export const updateNewPostTextAC = (text: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: text}
+);
+export const setStatus = (newStatus: string) => (
+    {type: SET_STATUS, newStatus}
 );
 export const setUserProfileAC = (profile: any) => (
     {type: SET_USER_PROFILE, profile}
@@ -64,8 +75,24 @@ export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId)
         .then(res => dispatch(setUserProfileAC(res.data)))
 }
-export const addPostAC = () => ({type: ADD_POST} )
+export const addPostAC = () => ({type: ADD_POST})
 
+export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
+
+    profileAPI.getStatus(userId)
+         .then(res => {
+            dispatch(setStatus(res.data))
+        })
+}
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(res => {
+            if (res.data.resoultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+
+}
 
 
 //types
@@ -80,5 +107,9 @@ type UpdateNewPostText = {
 type SetUserProfile = {
     type: typeof SET_USER_PROFILE
     profile: any
+}
+type SetStatus = {
+    type: typeof SET_STATUS
+    newStatus: string
 }
 
